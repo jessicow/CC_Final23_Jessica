@@ -5,6 +5,11 @@ let tombstone;
 let pixelFont;
 let button; 
 let a; 
+let ding;
+let test;
+let forestSounds;
+let bird1;
+let ambiance;
 
 let first, second, third, fourth, fifth; //booleans to control the order of the scenes
 
@@ -14,6 +19,12 @@ function preload(){
 	tombstone = loadImage('tombstone.png');
 	pixelFont = loadFont('Minecraft.ttf'); 
 	darkScreen = loadImage('blackbackground.png'); 
+	
+	soundFormats('mp3');
+	ding = loadSound('ding.mp3');	
+	bird1 = loadSound('cardinal.mp3');
+	forestSounds = loadSound('forest.mp3');
+	
 }
 
 function setup() 
@@ -35,13 +46,15 @@ function setup()
 	
 	textFont(pixelFont); 
 	textSize(40);  
+	
+	forestSounds.play(); 
 
 }
 
 function draw() {
 	//clear(); 
 	
-	if(first){
+	if(first){ 
 		background(ground); 
 	
 	 tree.resize(150, 150); 
@@ -55,13 +68,12 @@ function draw() {
 		rect(0, 0, 500, 500);
 }
 		if(iroh.overlaps(button)){
+			ding.play(); 
 			iroh.remove();
 			button.remove();
 			first = false; 
 			scene1(); 
 		}
-		
-		
 		
 	}
 	
@@ -70,6 +82,7 @@ function draw() {
 	}
 	
 }
+
 
 function textBox(){
 	if((iroh.x>75 && iroh.x<150) && (iroh.y>60 && iroh.y<175)){
@@ -86,10 +99,6 @@ function textBox(){
 	}
 	
 	
-}
-
-function mouseClicked(){
-	return true;
 }
 
 function scene1(){ 
