@@ -1,18 +1,19 @@
 let iroh; //using p5 play and p5 sound - remember to push to repository regularly 
 let tree;
-let ground;
+let ground, darkScreen; 
 let tombstone;
 let pixelFont;
 let button; 
 let a; 
 
-let first, second, third, fourth, fifth; 
+let first, second, third, fourth, fifth; //booleans to control the order of the scenes
 
 function preload(){
 	tree = loadImage('green tree.png'); 
 	ground = loadImage('background_grass.png'); 
 	tombstone = loadImage('tombstone.png');
 	pixelFont = loadFont('Minecraft.ttf'); 
+	darkScreen = loadImage('blackbackground.png'); 
 }
 
 function setup() 
@@ -21,11 +22,14 @@ function setup()
 	
 	a = 0; 
 
-	iroh = new Sprite(250, 50, 20, 20, 'k'); //Sprite(x, y, w, h, collider type)
-	button = new Sprite(250, 450, 70, 35, 'k');
+	iroh = new Sprite(250, 50, 20, 20, 'd'); //Sprite(x, y, w, h, collider type)
+	button = new Sprite(250, 450, 70, 35, 'd');
 	noStroke(); 
 	button.color = "green"; 
 	//button.text = 'yes'; 
+	
+	iroh.layer = 2;
+	button.layer = 1; 
 	
 	first = true; 
 	
@@ -45,18 +49,21 @@ function draw() {
 		
 		textBox();
 		
-		if(button.mouse.hovering() && mouseClicked()){
-	  fill(0, a); 
-		a++; 
+		if(button.mouse.hovering()){
+		fill(0,0,0, a);
+			a++;
 		rect(0, 0, 500, 500);
 }
+		if(iroh.overlaps(button)){
+			iroh.remove();
+			button.remove();
+			first = false; 
+			scene1(); 
+		}
 		
 		
 		
 	}
-	
-	//tombstone.resize(100, 100); 
-	//image(tombstone, 200, 230); 
 	
 	if(mouse.presses()){
 		iroh.moveTo(mouse.x, mouse.y, 3);  
@@ -85,9 +92,6 @@ function mouseClicked(){
 	return true;
 }
 
-function scene1(){
-	/*fill(0);
-	for(let i = 255.0; i>=0.0; i-=.5){
-		rect(0, 0, 500, 500, i); 
-	}*/
+function scene1(){ 
+	background(darkScreen); 
 }
