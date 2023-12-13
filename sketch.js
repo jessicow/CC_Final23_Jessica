@@ -2,8 +2,9 @@ let iroh; //using p5 play and p5 sound - remember to push to repository regularl
 let tree;
 let ground;
 let tombstone;
-let minecraftFont;
-let continueForward; 
+let pixelFont;
+let button; 
+let a; 
 
 let first, second, third, fourth, fifth; 
 
@@ -17,33 +18,41 @@ function preload(){
 function setup() 
 {
 	createCanvas(500, 500);
+	
+	a = 0; 
 
 	iroh = new Sprite(250, 50, 20, 20, 'k'); //Sprite(x, y, w, h, collider type)
+	button = new Sprite(250, 450, 70, 35, 'k');
+	noStroke(); 
+	button.color = "green"; 
+	//button.text = 'yes'; 
 	
 	first = true; 
 	
 	textFont(pixelFont); 
-	textSize(40); 
+	textSize(40);  
 
 }
 
 function draw() {
-	clear(); 
+	//clear(); 
 	
 	if(first){
 		background(ground); 
 	
-	tree.resize(150, 150); 
-	image(tree, 25, 50);
+	 tree.resize(150, 150); 
+	 image(tree, 25, 50);
 		
-		/*if((iroh.x>75 && iroh.x<150) && (iroh.y>60 && iroh.y<150)){
-			fill(0); 
-			text = new Sprite(250, 425, 400, 100, 's'); 
-			text.color = 'orange'; 
-			text.text = 'see memories?';
-		} */
+		textBox();
 		
-		scene1(); 
+		if(button.mouse.hovering() && mouseClicked()){
+	  fill(0, a); 
+		a++; 
+		rect(0, 0, 500, 500);
+}
+		
+		
+		
 	}
 	
 	//tombstone.resize(100, 100); 
@@ -55,13 +64,30 @@ function draw() {
 	
 }
 
-function scene1(){
+function textBox(){
 	if((iroh.x>75 && iroh.x<150) && (iroh.y>60 && iroh.y<175)){
 			fill(0); 
 		  rect(50, 375, 400, 100);
 		
 		  fill(255);
-		  text('see memories?', 100, 425); 
-		}
+		  text('view memories?', 110, 420); 
+		
+		button.color = 'white';
+		button.text = "yes"; 
+		
+			
+	}
 	
+	
+}
+
+function mouseClicked(){
+	return true;
+}
+
+function scene1(){
+	/*fill(0);
+	for(let i = 255.0; i>=0.0; i-=.5){
+		rect(0, 0, 500, 500, i); 
+	}*/
 }
